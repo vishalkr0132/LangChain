@@ -28,3 +28,9 @@ prompt = ChatPromptTemplate.from_messages(
 
     """
 )
+
+def create_vector_embedding():
+    if "vectors" not in st.session_state:
+        st.session_state.embedding = HuggingFaceEmbeddings()
+        st.session_state.loader = PyPDFDirectoryLoader("research_papers")
+        st.session_state.docs = st.session_state.loader.load()
