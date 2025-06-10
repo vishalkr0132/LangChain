@@ -15,7 +15,7 @@ st.title("🦜 LangChain: Chat with SQL DB")
 LOCALDB="USE_LOCALDB"
 MYSQL="USE_MYSQL"
 
-radio_opt=["Use SQLLite 3 Database- holdings_data","Connect to you MySQL Database"]
+radio_opt=["Use SQLLite 3 Database- superstore","Connect to you MySQL Database"]
 
 selected_opt=st.sidebar.radio(label="Choose the DB which you want to chat",options=radio_opt)
 
@@ -42,7 +42,7 @@ llm=ChatGroq(groq_api_key=api_key,model_name="Llama3-8b-8192",streaming=True)
 @st.cache_resource(ttl="2h")
 def configure_db(db_uri,mysql_host=None,mysql_user=None,mysql_password=None,mysql_db=None):
     if db_uri==LOCALDB:
-        dbfilepath=(Path(__file__).parent/"holdings_data.db").absolute()
+        dbfilepath=(Path(__file__).parent/"superstore.db").absolute()
         print(dbfilepath)
         creator = lambda: sqlite3.connect(f"file:{dbfilepath}?mode=ro", uri=True)
         return SQLDatabase(create_engine("sqlite:///", creator=creator))
